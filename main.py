@@ -67,23 +67,22 @@ class FirstScreen(imports.Screen):
         # ----Main Layout----
         self.layout = imports.MDBoxLayout(orientation='vertical', _md_bg_color=(0, 1, 1, 1))
 
-        # Top Navigation layout
+        # -----------------Top Navigation layout-------------------
         self.nav_layout = imports.MDBoxLayout(orientation='horizontal', size_hint=(1, None), height='48dp', spacing='10dp', _md_bg_color=(1, 1, 1, 1))
-        # Nav button-anchor-layouts
         self.nav_mnu = imports.MDAnchorLayout(anchor_x='right', anchor_y='center')
         self.nav_bck = imports.MDAnchorLayout(anchor_x='left', anchor_y='center')
-        # Nav button
-        bck_button = imports.MDIconButton(icon='chevron-left', icon_size='27sp', on_release=self.switch_screen)
-        mnu_button = imports.MDIconButton(icon='menu', icon_size='27sp')
+
+        bck_button = imports.MDIconButton(icon='chevron-left', icon_size='29sp', on_release=self.switch_screen)
+        mnu_button = imports.MDIconButton(icon='menu', icon_size='29sp')
         self.nav_bck.add_widget(bck_button)
         self.nav_mnu.add_widget(mnu_button)
 
         self.nav_layout.add_widget(self.nav_bck)
         self.nav_layout.add_widget(self.nav_mnu)
-        #  add to main
         self.layout.add_widget(self.nav_layout)
 
-        # Images
+        # ---------------------Images--------------------------------
+        anchor_layout = imports.MDBoxLayout(size_hint=(1, 0.15))
         self.images = []
         for i in range(1, 55):
             self.images.append("LoteriaCards/" + str(i) + ".png")
@@ -91,24 +90,50 @@ class FirstScreen(imports.Screen):
         self.playing = False
 
         self.image_widget = imports.Image(source=self.images[self.current_image])
-        self.image_widget.size_hint = (1, 1)
-        self.layout.add_widget(self.image_widget)
-        # Function buttons(prev,play,next)
-        self.btn_layout = imports.MDGridLayout(cols=3, pos_hint={"x": 0.28})
-        self.prev_button = imports.MDIconButton(icon="skip-previous", icon_size='35sp', on_release=self.previous_image)
-        self.play_button = imports.MDIconButton(icon="play", icon_size='35sp', on_release=self.play_pause)
-        self.next_button = imports.MDIconButton(icon="skip-next", icon_size='35sp', on_release=self.next_image)
-        self.btn_layout.add_widget(self.prev_button)
-        self.btn_layout.add_widget(self.play_button)
-        self.btn_layout.add_widget(self.next_button)
+
+        anchor_layout.add_widget(self.image_widget)
+
+        self.layout.add_widget(anchor_layout)
+        # ----------Function buttons(prev,play,next)----------------
+        self.btn_layout = imports.MDBoxLayout(orientation='horizontal', size_hint=(1, 0.05))
+        self.prev_layout1 = imports.MDAnchorLayout(anchor_x='right', anchor_y='center')
+        self.play_layout2 = imports.MDAnchorLayout(anchor_x='center', anchor_y='center')
+        self.next_layout3 = imports.MDAnchorLayout(anchor_x='left', anchor_y='center')
+
+        prev_button = imports.MDIconButton(icon="skip-previous", icon_size='35sp', on_release=self.previous_image)
+        play_button = imports.MDIconButton(icon="play", icon_size='35sp', on_release=self.play_pause)
+        next_button = imports.MDIconButton(icon="skip-next", icon_size='35sp', on_release=self.next_image)
+
+        self.prev_layout1.add_widget(prev_button)
+        self.play_layout2.add_widget(play_button)
+        self.next_layout3.add_widget(next_button)
+
+        self.btn_layout.add_widget(self.prev_layout1)
+        self.btn_layout.add_widget(self.play_layout2)
+        self.btn_layout.add_widget(self.next_layout3)
+
         self.layout.add_widget(self.btn_layout)
 
-        # ---------------bottom navigation--------------
-        self.btn_layout = imports.MDGridLayout(cols=3)
-        self.home_btn = imports.MDIconButton(icon="skip-previous", icon_size='35sp', on_release=self.previous_image)
-        self.home_btn = imports.MDIconButton(icon="skip-previous", icon_size='35sp', on_release=self.previous_image)
-        self.home_btn = imports.MDIconButton(icon="skip-previous", icon_size='35sp', on_release=self.previous_image)
+        # ---------------bottom navigation-------------------------
+        self.btm_layout = imports.MDBoxLayout(orientation='horizontal', size_hint=(1, None), height='48dp', spacing='10dp', _md_bg_color=(1, 1, 1, 1))
+        self.layout1 = imports.MDAnchorLayout(anchor_x='right', anchor_y='bottom')
+        self.layout2 = imports.MDAnchorLayout(anchor_x='center', anchor_y='bottom')
+        self.layout3 = imports.MDAnchorLayout(anchor_x='left', anchor_y='bottom')
 
+        user_btn = imports.MDIconButton(icon="home", icon_size='30sp')
+        home_btn = imports.MDIconButton(icon="camera", icon_size='60sp', _theme_icon_color='Custom', md_bg_color='#fefbff')
+        not_btn = imports.MDIconButton(icon="bell", icon_size='30sp')
+
+        self.layout1.add_widget(user_btn)
+        self.layout2.add_widget(home_btn)
+        self.layout3.add_widget(not_btn)
+
+        self.btm_layout.add_widget(self.layout1)
+        self.btm_layout.add_widget(self.layout2)
+        self.btm_layout.add_widget(self.layout3)
+
+        self.layout.add_widget(self.btm_layout)
+        # ----------completed layout------------
         self.add_widget(self.layout)
 
     def switch_screen(self, *args):
