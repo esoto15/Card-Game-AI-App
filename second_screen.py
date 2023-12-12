@@ -1,3 +1,5 @@
+from kivy.metrics import dp
+
 import imports
 import pyttsx3
 from pyttsx3 import init, Engine
@@ -86,7 +88,7 @@ class SecondScreen(imports.Screen):
         self.layout.add_widget(self.nav_layout)
 
         # ---------------------Images--------------------------------
-        image_layout = imports.MDBoxLayout(size_hint=(1, 0.098))
+        self.image_layout = imports.MDBoxLayout(size_hint=(1, 0.098))
         self.images = []
         for i in range(1, 55):
             self.images.append("LoteriaCards/" + str(i) + ".png")
@@ -94,10 +96,10 @@ class SecondScreen(imports.Screen):
         self.playing = False
 
         self.image_widget = imports.Image(source=self.images[self.current_image])
+        self.image_layout.add_widget(self.image_widget)
 
-        image_layout.add_widget(self.image_widget)
+        self.layout.add_widget(self.image_layout)
 
-        self.layout.add_widget(image_layout)
         # ----------Function buttons(prev,play,next)----------------
         self.main_layout = imports.MDAnchorLayout(anchor_x='center', size_hint=(1, 0.02))
         self.btn_layout = imports.MDBoxLayout(orientation='horizontal', size_hint=(0.57, 0.7), radius=[20, 20, 20, 20], _md_bg_color=(1, 1, 1, 1))

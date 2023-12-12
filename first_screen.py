@@ -10,7 +10,8 @@ class FirstScreen(imports.Screen):
 
         # Create the main layout
         layout = imports.MDBoxLayout(orientation='vertical')
-        label = imports.MDLabel(text='First Screen')
+        label = imports.MDLabel(text='Loteria AI')
+
         button = imports.MDFlatButton(text='Go to Second Screen', on_release=self.switch_screen)
 
         layout.add_widget(label)
